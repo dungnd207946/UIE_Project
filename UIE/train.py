@@ -10,10 +10,11 @@ from tensorboardX import SummaryWriter
 import os
 import numpy as np
 
+os.environ["WANDB_SILENT"] = "false"
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', type=str, default=r'E:\GMS\DiffWater\config\config.yml',
-                        help='yml file for configuration')
+    parser.add_argument('-c', '--config', type=str, default=r'D:\DUNG\MasterProgram\IT5413_GenAI_in_CV\Project\UIE_Project\UIE\config\config.yml', help='yml file for configuration')
     parser.add_argument('-p', '--phase', type=str, help='Run train(training)', default='train')
     parser.add_argument('-gpu', '--gpu_ids', type=str, default=None)
     parser.add_argument('-debug', '-d', action='store_true')

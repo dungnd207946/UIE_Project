@@ -7,7 +7,7 @@ class UIEDataset(Dataset):
     def __init__(self, dataroot, resolution=256, split='train', data_len=-1):
         self.data_len = data_len
         self.split = split
-
+        self.resolution = resolution
         self.input_path = Util.get_paths_from_images('{}/input_{}'.format(dataroot, resolution))
         self.target_path = Util.get_paths_from_images('{}/target_{}'.format(dataroot, resolution))
 
@@ -24,6 +24,10 @@ class UIEDataset(Dataset):
 
         target = Image.open(self.target_path[index]).convert("RGB")
         input = Image.open(self.input_path[index]).convert("RGB")
+
+        target = target.resize((self.resolution, self.resolution), Image.BICUBIC)
+        input = input.resize((self.resolution, self.resolution), Image.BICUBIC)
+
         input = t_c(input)
 
         [input, target] = Util.transform_augment([input, target], split=self.split, min_max=(-1, 1))
