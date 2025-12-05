@@ -1,0 +1,100 @@
+25-12-05 09:50:57.240 - INFO:   name: UIEB
+  gpu_ids: [0, 1]
+  path:[
+    log: experiments\UIEB_251205_095057\logs
+    tb_logger: experiments\UIEB_251205_095057\tb_logger
+    results: experiments\UIEB_251205_095057\results
+    checkpoint: experiments\UIEB_251205_095057\checkpoint
+    resume_state: experiments/UIEB_251204_222921/checkpoint/I40000_E186
+    experiments_root: experiments\UIEB_251205_095057
+  ]
+  datasets:[
+    train:[
+      name: UIEB
+      dataroot: D:/DUNG/MasterProgram/IT5413_GenAI_in_CV/Project/Datasets_Founded/UIEB/train
+      resolution: 256
+      batch_size: 4
+      num_workers: 8
+      use_shuffle: True
+      data_len: -1
+    ]
+    val:[
+      name: UIEB
+      dataroot: D:/DUNG/MasterProgram/IT5413_GenAI_in_CV/Project/Datasets_Founded/UIEB/test
+      resolution: 256
+      use_shuffle: True
+      data_len: -1
+    ]
+  ]
+  model:[
+    unet:[
+      in_channel: 6
+      out_channel: 3
+      inner_channel: 32
+      norm_groups: 16
+      channel_multiplier: [1, 2, 4, 8]
+      attn_res: [16]
+      res_blocks: 1
+      dropout: 0
+      channels: 1024
+      ratio: 1
+      cond_in_dim: 3
+      image_size: 256
+    ]
+    diffusion:[
+      image_size: 256
+      channels: 3
+      conditional: True
+    ]
+    beta_schedule:[
+      train:[
+        schedule: linear
+        n_timestep: 2000
+        linear_start: 1e-06
+        linear_end: 0.01
+      ]
+      val:[
+        schedule: linear
+        n_timestep: 2000
+        linear_start: 1e-06
+        linear_end: 0.01
+      ]
+    ]
+  ]
+  diffusion:[
+    image_size: 256
+    channels: 3
+    conditional: True
+  ]
+  train:[
+    n_iter: 200000
+    val_freq: 1000
+    save_checkpoint_freq: 5000
+    print_freq: 100
+    optimizer:[
+      type: adam
+      lr: 5e-05
+    ]
+    ema_scheduler:[
+      step_start_ema: 2000
+      update_ema_every: 1
+      ema_decay: 0.9999
+    ]
+  ]
+  wandb:[
+    project: UIE
+    enable: True
+    log_eval: True
+    log_infer: True
+  ]
+  phase: val
+  distributed: True
+  log_infer: False
+  enable_wandb: False
+
+25-12-05 09:50:57.266 - INFO: Dataset [UIEDataset - UIEB] is created.
+25-12-05 09:50:57.267 - INFO: Initial Dataset Finished
+25-12-05 09:50:59.029 - INFO: Loading pretrained model for G [experiments/UIEB_251204_222921/checkpoint/I40000_E186] ...
+25-12-05 09:50:59.086 - INFO: Model [DDPM] is created.
+25-12-05 09:50:59.086 - INFO: Initial Model Finished
+25-12-05 09:50:59.086 - INFO: Begin Model Inference.
