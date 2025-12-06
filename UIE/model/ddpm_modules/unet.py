@@ -152,7 +152,7 @@ class UNet(nn.Module):
         inner_channel=32,
         norm_groups=32,
         channel_mults=(1, 2, 4, 8, 8),
-        attn_res=(8),
+        attn_res=[8],
         res_blocks=3,
         dropout=0,
         with_time_emb=True,
@@ -196,7 +196,7 @@ class UNet(nn.Module):
         self.mid = nn.ModuleList([
             ResnetBlocWithAttn(pre_channel, pre_channel, time_emb_dim=time_dim, norm_groups=norm_groups,
                                dropout=dropout, with_attn=True),
-            ResnetBlocWithAttn(pre_channel, pre_channel, time_emb_dim=time_dim, norm_groups=norm_groups, 
+            ResnetBlocWithAttn(pre_channel, pre_channel, time_emb_dim=time_dim, norm_groups=norm_groups,
                                 dropout=dropout, with_attn=False)
         ])
 

@@ -1,0 +1,557 @@
+25-12-04 22:29:21.834 - INFO:   name: UIEB
+  gpu_ids: [0, 1]
+  path:[
+    log: experiments\UIEB_251204_222921\logs
+    tb_logger: experiments\UIEB_251204_222921\tb_logger
+    results: experiments\UIEB_251204_222921\results
+    checkpoint: experiments\UIEB_251204_222921\checkpoint
+    resume_state: experiments/UIEB_251204_212259/checkpoint/I5000_E24
+    experiments_root: experiments\UIEB_251204_222921
+  ]
+  datasets:[
+    train:[
+      name: UIEB
+      dataroot: D:/DUNG/MasterProgram/IT5413_GenAI_in_CV/Project/Datasets_Founded/UIEB/train
+      resolution: 256
+      batch_size: 4
+      num_workers: 8
+      use_shuffle: True
+      data_len: -1
+    ]
+    val:[
+      name: UIEB
+      dataroot: D:/DUNG/MasterProgram/IT5413_GenAI_in_CV/Project/Datasets_Founded/UIEB/test
+      resolution: 256
+      use_shuffle: True
+      data_len: 3
+    ]
+  ]
+  model:[
+    unet:[
+      in_channel: 6
+      out_channel: 3
+      inner_channel: 32
+      norm_groups: 16
+      channel_multiplier: [1, 2, 4, 8]
+      attn_res: [16]
+      res_blocks: 1
+      dropout: 0
+      channels: 1024
+      ratio: 1
+      cond_in_dim: 3
+      image_size: 256
+    ]
+    diffusion:[
+      image_size: 256
+      channels: 3
+      conditional: True
+    ]
+    beta_schedule:[
+      train:[
+        schedule: linear
+        n_timestep: 2000
+        linear_start: 1e-06
+        linear_end: 0.01
+      ]
+      val:[
+        schedule: linear
+        n_timestep: 2000
+        linear_start: 1e-06
+        linear_end: 0.01
+      ]
+    ]
+  ]
+  diffusion:[
+    image_size: 256
+    channels: 3
+    conditional: True
+  ]
+  train:[
+    n_iter: 200000
+    val_freq: 1000
+    save_checkpoint_freq: 5000
+    print_freq: 100
+    optimizer:[
+      type: adam
+      lr: 5e-05
+    ]
+    ema_scheduler:[
+      step_start_ema: 2000
+      update_ema_every: 1
+      ema_decay: 0.9999
+    ]
+  ]
+  wandb:[
+    project: UIE
+    enable: True
+    log_eval: True
+    log_infer: True
+  ]
+  phase: train
+  distributed: True
+  log_wandb_ckpt: False
+  log_eval: False
+  enable_wandb: False
+
+25-12-04 22:29:21.864 - INFO: Dataset [UIEDataset - UIEB] is created.
+25-12-04 22:29:21.865 - INFO: Dataset [UIEDataset - UIEB] is created.
+25-12-04 22:29:21.865 - INFO: Initial Dataset Finished
+25-12-04 22:29:21.913 - INFO: Initialization method [orthogonal]
+25-12-04 22:29:22.315 - INFO: Loading pretrained model for G [experiments/UIEB_251204_212259/checkpoint/I5000_E24] ...
+25-12-04 22:29:22.437 - INFO: Model [DDPM] is created.
+25-12-04 22:29:22.437 - INFO: Initial Model Finished
+25-12-04 22:29:22.437 - INFO: Resuming training from epoch: 24, iter: 5000.
+25-12-04 22:30:04.915 - INFO: <epoch: 25, iter:   5,100> l_pix: 1.0466e-01 
+25-12-04 22:30:23.260 - INFO: <epoch: 25, iter:   5,200> l_pix: 1.4059e-01 
+25-12-04 22:31:01.402 - INFO: <epoch: 26, iter:   5,300> l_pix: 8.5103e-02 
+25-12-04 22:31:20.483 - INFO: <epoch: 26, iter:   5,400> l_pix: 1.1820e-01 
+25-12-04 22:32:24.216 - INFO: <epoch: 27, iter:   5,500> l_pix: 4.5005e-02 
+25-12-04 22:32:42.596 - INFO: <epoch: 27, iter:   5,600> l_pix: 1.6585e-01 
+25-12-04 22:33:46.396 - INFO: <epoch: 28, iter:   5,700> l_pix: 1.1836e-01 
+25-12-04 22:34:11.830 - INFO: <epoch: 28, iter:   5,800> l_pix: 7.7156e-02 
+25-12-04 22:35:19.433 - INFO: <epoch: 29, iter:   5,900> l_pix: 8.2738e-02 
+25-12-04 22:35:41.313 - INFO: <epoch: 29, iter:   6,000> l_pix: 2.6441e-01 
+25-12-04 22:37:44.183 - INFO: # Validation # PSNR: 1.6015e+01
+25-12-04 22:37:44.185 - INFO: <epoch: 29, iter:   6,000> psnr: 1.6015e+01
+25-12-04 22:38:51.137 - INFO: <epoch: 30, iter:   6,100> l_pix: 1.1680e-01 
+25-12-04 22:39:14.625 - INFO: <epoch: 30, iter:   6,200> l_pix: 4.2353e-02 
+25-12-04 22:39:36.529 - INFO: <epoch: 30, iter:   6,300> l_pix: 4.8011e-02 
+25-12-04 22:40:40.886 - INFO: <epoch: 31, iter:   6,400> l_pix: 6.4365e-02 
+25-12-04 22:41:03.810 - INFO: <epoch: 31, iter:   6,500> l_pix: 6.8440e-02 
+25-12-04 22:42:10.997 - INFO: <epoch: 32, iter:   6,600> l_pix: 1.8249e-01 
+25-12-04 22:42:32.988 - INFO: <epoch: 32, iter:   6,700> l_pix: 1.1060e-01 
+25-12-04 22:43:37.646 - INFO: <epoch: 33, iter:   6,800> l_pix: 6.3416e-02 
+25-12-04 22:44:00.992 - INFO: <epoch: 33, iter:   6,900> l_pix: 7.0649e-02 
+25-12-04 22:45:06.866 - INFO: <epoch: 34, iter:   7,000> l_pix: 4.7619e-02 
+25-12-04 22:47:15.744 - INFO: # Validation # PSNR: 1.6374e+01
+25-12-04 22:47:15.744 - INFO: <epoch: 34, iter:   7,000> psnr: 1.6374e+01
+25-12-04 22:47:37.702 - INFO: <epoch: 34, iter:   7,100> l_pix: 6.3132e-02 
+25-12-04 22:48:43.679 - INFO: <epoch: 35, iter:   7,200> l_pix: 4.2465e-02 
+25-12-04 22:49:06.896 - INFO: <epoch: 35, iter:   7,300> l_pix: 1.4126e-01 
+25-12-04 22:50:13.043 - INFO: <epoch: 36, iter:   7,400> l_pix: 4.4719e-02 
+25-12-04 22:50:36.751 - INFO: <epoch: 36, iter:   7,500> l_pix: 6.4494e-02 
+25-12-04 22:50:58.832 - INFO: <epoch: 36, iter:   7,600> l_pix: 4.5500e-02 
+25-12-04 22:52:05.512 - INFO: <epoch: 37, iter:   7,700> l_pix: 8.6231e-02 
+25-12-04 22:52:28.198 - INFO: <epoch: 37, iter:   7,800> l_pix: 4.6371e-02 
+25-12-04 22:53:33.868 - INFO: <epoch: 38, iter:   7,900> l_pix: 7.3252e-02 
+25-12-04 22:53:53.167 - INFO: <epoch: 38, iter:   8,000> l_pix: 7.6607e-02 
+25-12-04 22:55:51.808 - INFO: # Validation # PSNR: 1.5462e+01
+25-12-04 22:55:51.808 - INFO: <epoch: 38, iter:   8,000> psnr: 1.5462e+01
+25-12-04 22:56:35.668 - INFO: <epoch: 39, iter:   8,100> l_pix: 6.2473e-02 
+25-12-04 22:56:52.964 - INFO: <epoch: 39, iter:   8,200> l_pix: 1.1526e-01 
+25-12-04 22:57:28.931 - INFO: <epoch: 40, iter:   8,300> l_pix: 7.5073e-02 
+25-12-04 22:57:46.371 - INFO: <epoch: 40, iter:   8,400> l_pix: 4.9167e-02 
+25-12-04 22:58:49.910 - INFO: <epoch: 41, iter:   8,500> l_pix: 4.6744e-02 
+25-12-04 22:59:07.267 - INFO: <epoch: 41, iter:   8,600> l_pix: 4.4678e-02 
+25-12-04 23:00:08.915 - INFO: <epoch: 42, iter:   8,700> l_pix: 3.4870e-02 
+25-12-04 23:00:26.647 - INFO: <epoch: 42, iter:   8,800> l_pix: 8.0278e-02 
+25-12-04 23:00:44.476 - INFO: <epoch: 42, iter:   8,900> l_pix: 3.8307e-02 
+25-12-04 23:01:46.921 - INFO: <epoch: 43, iter:   9,000> l_pix: 4.3859e-02 
+25-12-04 23:03:58.777 - INFO: # Validation # PSNR: 1.4176e+01
+25-12-04 23:03:58.778 - INFO: <epoch: 43, iter:   9,000> psnr: 1.4176e+01
+25-12-04 23:04:22.897 - INFO: <epoch: 43, iter:   9,100> l_pix: 4.9119e-02 
+25-12-04 23:05:30.918 - INFO: <epoch: 44, iter:   9,200> l_pix: 3.7788e-02 
+25-12-04 23:06:05.162 - INFO: <epoch: 44, iter:   9,300> l_pix: 3.1983e-02 
+25-12-04 23:07:10.630 - INFO: <epoch: 45, iter:   9,400> l_pix: 1.3506e-01 
+25-12-04 23:07:34.806 - INFO: <epoch: 45, iter:   9,500> l_pix: 4.2625e-02 
+25-12-04 23:08:39.661 - INFO: <epoch: 46, iter:   9,600> l_pix: 4.8766e-02 
+25-12-04 23:09:03.518 - INFO: <epoch: 46, iter:   9,700> l_pix: 4.2909e-02 
+25-12-04 23:10:08.888 - INFO: <epoch: 47, iter:   9,800> l_pix: 6.6923e-02 
+25-12-04 23:10:32.698 - INFO: <epoch: 47, iter:   9,900> l_pix: 6.6155e-02 
+25-12-04 23:11:38.884 - INFO: <epoch: 48, iter:  10,000> l_pix: 3.2993e-02 
+25-12-04 23:13:41.741 - INFO: # Validation # PSNR: 1.2549e+01
+25-12-04 23:13:41.742 - INFO: <epoch: 48, iter:  10,000> psnr: 1.2549e+01
+25-12-04 23:13:41.742 - INFO: Saving models and training states.
+25-12-04 23:13:42.040 - INFO: Saved model in [experiments\UIEB_251204_222921\checkpoint\I10000_E48_gen.pth] ...
+25-12-04 23:14:05.892 - INFO: <epoch: 48, iter:  10,100> l_pix: 6.7486e-02 
+25-12-04 23:14:28.435 - INFO: <epoch: 48, iter:  10,200> l_pix: 4.3118e-02 
+25-12-04 23:15:35.371 - INFO: <epoch: 49, iter:  10,300> l_pix: 8.9036e-02 
+25-12-04 23:15:56.671 - INFO: <epoch: 49, iter:  10,400> l_pix: 8.1696e-02 
+25-12-04 23:17:02.840 - INFO: <epoch: 50, iter:  10,500> l_pix: 1.1805e-01 
+25-12-04 23:17:27.709 - INFO: <epoch: 50, iter:  10,600> l_pix: 4.7548e-02 
+25-12-04 23:18:40.033 - INFO: <epoch: 51, iter:  10,700> l_pix: 1.2568e-01 
+25-12-04 23:19:09.798 - INFO: <epoch: 51, iter:  10,800> l_pix: 3.0975e-02 
+25-12-04 23:20:17.570 - INFO: <epoch: 52, iter:  10,900> l_pix: 1.3932e-01 
+25-12-04 23:20:41.905 - INFO: <epoch: 52, iter:  11,000> l_pix: 4.2759e-02 
+25-12-04 23:22:48.279 - INFO: # Validation # PSNR: 1.7237e+01
+25-12-04 23:22:48.280 - INFO: <epoch: 52, iter:  11,000> psnr: 1.7237e+01
+25-12-04 23:23:52.983 - INFO: <epoch: 53, iter:  11,100> l_pix: 5.9914e-02 
+25-12-04 23:24:12.217 - INFO: <epoch: 53, iter:  11,200> l_pix: 5.0980e-02 
+25-12-04 23:24:47.338 - INFO: <epoch: 54, iter:  11,300> l_pix: 4.6695e-02 
+25-12-04 23:25:04.560 - INFO: <epoch: 54, iter:  11,400> l_pix: 2.9580e-02 
+25-12-04 23:25:21.808 - INFO: <epoch: 54, iter:  11,500> l_pix: 1.5764e-01 
+25-12-04 23:25:56.011 - INFO: <epoch: 55, iter:  11,600> l_pix: 2.8102e-02 
+25-12-04 23:26:13.254 - INFO: <epoch: 55, iter:  11,700> l_pix: 5.2951e-02 
+25-12-04 23:26:47.844 - INFO: <epoch: 56, iter:  11,800> l_pix: 9.5655e-02 
+25-12-04 23:27:05.072 - INFO: <epoch: 56, iter:  11,900> l_pix: 5.8923e-02 
+25-12-04 23:27:39.321 - INFO: <epoch: 57, iter:  12,000> l_pix: 3.6954e-02 
+25-12-04 23:28:50.844 - INFO: # Validation # PSNR: 1.7787e+01
+25-12-04 23:28:50.844 - INFO: <epoch: 57, iter:  12,000> psnr: 1.7787e+01
+25-12-04 23:29:08.074 - INFO: <epoch: 57, iter:  12,100> l_pix: 4.3133e-02 
+25-12-04 23:29:42.953 - INFO: <epoch: 58, iter:  12,200> l_pix: 7.8027e-02 
+25-12-04 23:30:00.157 - INFO: <epoch: 58, iter:  12,300> l_pix: 6.4373e-02 
+25-12-04 23:30:34.815 - INFO: <epoch: 59, iter:  12,400> l_pix: 5.3358e-02 
+25-12-04 23:30:51.992 - INFO: <epoch: 59, iter:  12,500> l_pix: 3.7731e-02 
+25-12-04 23:31:26.683 - INFO: <epoch: 60, iter:  12,600> l_pix: 3.8274e-02 
+25-12-04 23:31:43.883 - INFO: <epoch: 60, iter:  12,700> l_pix: 3.2701e-02 
+25-12-04 23:32:01.087 - INFO: <epoch: 60, iter:  12,800> l_pix: 8.5701e-02 
+25-12-04 23:32:36.111 - INFO: <epoch: 61, iter:  12,900> l_pix: 7.8088e-02 
+25-12-04 23:32:53.320 - INFO: <epoch: 61, iter:  13,000> l_pix: 2.9267e-02 
+25-12-04 23:34:04.664 - INFO: # Validation # PSNR: 1.6847e+01
+25-12-04 23:34:04.664 - INFO: <epoch: 61, iter:  13,000> psnr: 1.6847e+01
+25-12-04 23:34:38.777 - INFO: <epoch: 62, iter:  13,100> l_pix: 3.7702e-02 
+25-12-04 23:34:55.980 - INFO: <epoch: 62, iter:  13,200> l_pix: 4.1666e-02 
+25-12-04 23:35:30.233 - INFO: <epoch: 63, iter:  13,300> l_pix: 8.7951e-02 
+25-12-04 23:35:47.460 - INFO: <epoch: 63, iter:  13,400> l_pix: 4.4051e-02 
+25-12-04 23:36:22.087 - INFO: <epoch: 64, iter:  13,500> l_pix: 3.3388e-02 
+25-12-04 23:36:39.315 - INFO: <epoch: 64, iter:  13,600> l_pix: 3.5933e-02 
+25-12-04 23:37:13.556 - INFO: <epoch: 65, iter:  13,700> l_pix: 6.3275e-02 
+25-12-04 23:37:30.755 - INFO: <epoch: 65, iter:  13,800> l_pix: 6.6747e-02 
+25-12-04 23:38:05.628 - INFO: <epoch: 66, iter:  13,900> l_pix: 3.3577e-02 
+25-12-04 23:38:22.795 - INFO: <epoch: 66, iter:  14,000> l_pix: 7.6628e-02 
+25-12-04 23:39:46.543 - INFO: # Validation # PSNR: 1.9967e+01
+25-12-04 23:39:46.543 - INFO: <epoch: 66, iter:  14,000> psnr: 1.9967e+01
+25-12-04 23:40:03.726 - INFO: <epoch: 66, iter:  14,100> l_pix: 2.6687e-02 
+25-12-04 23:40:38.252 - INFO: <epoch: 67, iter:  14,200> l_pix: 5.9199e-02 
+25-12-04 23:40:55.464 - INFO: <epoch: 67, iter:  14,300> l_pix: 3.9418e-02 
+25-12-04 23:41:29.916 - INFO: <epoch: 68, iter:  14,400> l_pix: 4.1751e-02 
+25-12-04 23:41:47.112 - INFO: <epoch: 68, iter:  14,500> l_pix: 3.1799e-02 
+25-12-04 23:42:21.381 - INFO: <epoch: 69, iter:  14,600> l_pix: 7.1523e-02 
+25-12-04 23:42:38.572 - INFO: <epoch: 69, iter:  14,700> l_pix: 3.1392e-02 
+25-12-04 23:43:13.010 - INFO: <epoch: 70, iter:  14,800> l_pix: 1.2215e-01 
+25-12-04 23:43:30.201 - INFO: <epoch: 70, iter:  14,900> l_pix: 4.0952e-02 
+25-12-04 23:44:04.833 - INFO: <epoch: 71, iter:  15,000> l_pix: 8.5656e-02 
+25-12-04 23:45:16.514 - INFO: # Validation # PSNR: 1.5223e+01
+25-12-04 23:45:16.514 - INFO: <epoch: 71, iter:  15,000> psnr: 1.5223e+01
+25-12-04 23:45:16.516 - INFO: Saving models and training states.
+25-12-04 23:45:16.666 - INFO: Saved model in [experiments\UIEB_251204_222921\checkpoint\I15000_E71_gen.pth] ...
+25-12-04 23:45:33.855 - INFO: <epoch: 71, iter:  15,100> l_pix: 3.4819e-02 
+25-12-04 23:46:08.577 - INFO: <epoch: 72, iter:  15,200> l_pix: 4.1391e-02 
+25-12-04 23:46:25.750 - INFO: <epoch: 72, iter:  15,300> l_pix: 3.3659e-02 
+25-12-04 23:46:42.956 - INFO: <epoch: 72, iter:  15,400> l_pix: 3.0875e-02 
+25-12-04 23:47:18.160 - INFO: <epoch: 73, iter:  15,500> l_pix: 2.9833e-02 
+25-12-04 23:47:35.357 - INFO: <epoch: 73, iter:  15,600> l_pix: 8.2195e-02 
+25-12-04 23:48:09.614 - INFO: <epoch: 74, iter:  15,700> l_pix: 6.1448e-02 
+25-12-04 23:48:26.807 - INFO: <epoch: 74, iter:  15,800> l_pix: 7.7984e-02 
+25-12-04 23:49:01.286 - INFO: <epoch: 75, iter:  15,900> l_pix: 1.8185e-01 
+25-12-04 23:49:18.461 - INFO: <epoch: 75, iter:  16,000> l_pix: 7.4243e-02 
+25-12-04 23:50:29.836 - INFO: # Validation # PSNR: 1.2831e+01
+25-12-04 23:50:29.836 - INFO: <epoch: 75, iter:  16,000> psnr: 1.2831e+01
+25-12-04 23:51:04.155 - INFO: <epoch: 76, iter:  16,100> l_pix: 4.6466e-02 
+25-12-04 23:51:21.351 - INFO: <epoch: 76, iter:  16,200> l_pix: 3.6926e-02 
+25-12-04 23:51:55.589 - INFO: <epoch: 77, iter:  16,300> l_pix: 4.1331e-02 
+25-12-04 23:52:12.786 - INFO: <epoch: 77, iter:  16,400> l_pix: 6.3102e-02 
+25-12-04 23:52:29.980 - INFO: <epoch: 77, iter:  16,500> l_pix: 3.8679e-02 
+25-12-04 23:53:04.273 - INFO: <epoch: 78, iter:  16,600> l_pix: 2.5749e-02 
+25-12-04 23:53:21.449 - INFO: <epoch: 78, iter:  16,700> l_pix: 7.7282e-02 
+25-12-04 23:53:55.706 - INFO: <epoch: 79, iter:  16,800> l_pix: 4.2385e-02 
+25-12-04 23:54:12.887 - INFO: <epoch: 79, iter:  16,900> l_pix: 4.9021e-02 
+25-12-04 23:54:47.146 - INFO: <epoch: 80, iter:  17,000> l_pix: 2.9686e-02 
+25-12-04 23:55:58.577 - INFO: # Validation # PSNR: 1.6070e+01
+25-12-04 23:55:58.578 - INFO: <epoch: 80, iter:  17,000> psnr: 1.6070e+01
+25-12-04 23:56:15.763 - INFO: <epoch: 80, iter:  17,100> l_pix: 3.8513e-02 
+25-12-04 23:56:50.201 - INFO: <epoch: 81, iter:  17,200> l_pix: 3.6651e-02 
+25-12-04 23:57:07.409 - INFO: <epoch: 81, iter:  17,300> l_pix: 2.3846e-02 
+25-12-04 23:57:41.658 - INFO: <epoch: 82, iter:  17,400> l_pix: 4.4725e-02 
+25-12-04 23:57:58.856 - INFO: <epoch: 82, iter:  17,500> l_pix: 9.7592e-02 
+25-12-04 23:58:33.328 - INFO: <epoch: 83, iter:  17,600> l_pix: 3.8083e-02 
+25-12-04 23:58:50.507 - INFO: <epoch: 83, iter:  17,700> l_pix: 3.5800e-02 
+25-12-04 23:59:07.698 - INFO: <epoch: 83, iter:  17,800> l_pix: 7.1938e-02 
+25-12-04 23:59:41.964 - INFO: <epoch: 84, iter:  17,900> l_pix: 1.0032e-01 
+25-12-04 23:59:59.143 - INFO: <epoch: 84, iter:  18,000> l_pix: 5.3630e-02 
+25-12-05 00:01:10.764 - INFO: # Validation # PSNR: 1.4908e+01
+25-12-05 00:01:10.764 - INFO: <epoch: 84, iter:  18,000> psnr: 1.4908e+01
+25-12-05 00:01:45.226 - INFO: <epoch: 85, iter:  18,100> l_pix: 5.1450e-02 
+25-12-05 00:02:02.424 - INFO: <epoch: 85, iter:  18,200> l_pix: 2.0918e-02 
+25-12-05 00:02:37.480 - INFO: <epoch: 86, iter:  18,300> l_pix: 2.1931e-02 
+25-12-05 00:02:54.659 - INFO: <epoch: 86, iter:  18,400> l_pix: 9.4371e-02 
+25-12-05 00:03:29.739 - INFO: <epoch: 87, iter:  18,500> l_pix: 4.7203e-02 
+25-12-05 00:03:46.925 - INFO: <epoch: 87, iter:  18,600> l_pix: 2.2367e-02 
+25-12-05 00:04:21.814 - INFO: <epoch: 88, iter:  18,700> l_pix: 3.3755e-02 
+25-12-05 00:04:38.999 - INFO: <epoch: 88, iter:  18,800> l_pix: 3.1862e-02 
+25-12-05 00:05:13.655 - INFO: <epoch: 89, iter:  18,900> l_pix: 4.7404e-02 
+25-12-05 00:05:30.849 - INFO: <epoch: 89, iter:  19,000> l_pix: 2.5404e-02 
+25-12-05 00:06:42.030 - INFO: # Validation # PSNR: 1.6514e+01
+25-12-05 00:06:42.030 - INFO: <epoch: 89, iter:  19,000> psnr: 1.6514e+01
+25-12-05 00:06:59.237 - INFO: <epoch: 89, iter:  19,100> l_pix: 2.9661e-02 
+25-12-05 00:07:34.084 - INFO: <epoch: 90, iter:  19,200> l_pix: 3.8926e-02 
+25-12-05 00:07:51.301 - INFO: <epoch: 90, iter:  19,300> l_pix: 5.2254e-02 
+25-12-05 00:08:25.963 - INFO: <epoch: 91, iter:  19,400> l_pix: 5.9145e-02 
+25-12-05 00:08:43.161 - INFO: <epoch: 91, iter:  19,500> l_pix: 2.3751e-02 
+25-12-05 00:09:17.647 - INFO: <epoch: 92, iter:  19,600> l_pix: 2.3241e-01 
+25-12-05 00:09:34.866 - INFO: <epoch: 92, iter:  19,700> l_pix: 1.1681e-01 
+25-12-05 00:10:09.526 - INFO: <epoch: 93, iter:  19,800> l_pix: 5.4605e-02 
+25-12-05 00:10:26.746 - INFO: <epoch: 93, iter:  19,900> l_pix: 5.4401e-02 
+25-12-05 00:11:01.152 - INFO: <epoch: 94, iter:  20,000> l_pix: 2.9499e-02 
+25-12-05 00:12:12.386 - INFO: # Validation # PSNR: 1.7110e+01
+25-12-05 00:12:12.386 - INFO: <epoch: 94, iter:  20,000> psnr: 1.7110e+01
+25-12-05 00:12:12.386 - INFO: Saving models and training states.
+25-12-05 00:12:12.508 - INFO: Saved model in [experiments\UIEB_251204_222921\checkpoint\I20000_E94_gen.pth] ...
+25-12-05 00:12:29.693 - INFO: <epoch: 94, iter:  20,100> l_pix: 1.9661e-01 
+25-12-05 00:13:04.176 - INFO: <epoch: 95, iter:  20,200> l_pix: 7.1717e-02 
+25-12-05 00:13:21.372 - INFO: <epoch: 95, iter:  20,300> l_pix: 2.5495e-02 
+25-12-05 00:13:38.588 - INFO: <epoch: 95, iter:  20,400> l_pix: 7.2861e-02 
+25-12-05 00:14:13.456 - INFO: <epoch: 96, iter:  20,500> l_pix: 2.4094e-02 
+25-12-05 00:14:30.672 - INFO: <epoch: 96, iter:  20,600> l_pix: 4.8030e-02 
+25-12-05 00:15:05.086 - INFO: <epoch: 97, iter:  20,700> l_pix: 2.4425e-02 
+25-12-05 00:15:22.248 - INFO: <epoch: 97, iter:  20,800> l_pix: 1.0573e-01 
+25-12-05 00:15:56.767 - INFO: <epoch: 98, iter:  20,900> l_pix: 4.9579e-02 
+25-12-05 00:16:13.943 - INFO: <epoch: 98, iter:  21,000> l_pix: 2.5503e-02 
+25-12-05 00:17:25.410 - INFO: # Validation # PSNR: 1.6207e+01
+25-12-05 00:17:25.410 - INFO: <epoch: 98, iter:  21,000> psnr: 1.6207e+01
+25-12-05 00:18:00.241 - INFO: <epoch: 99, iter:  21,100> l_pix: 6.4711e-02 
+25-12-05 00:18:17.426 - INFO: <epoch: 99, iter:  21,200> l_pix: 1.2751e-01 
+25-12-05 00:18:51.867 - INFO: <epoch:100, iter:  21,300> l_pix: 4.0423e-02 
+25-12-05 00:19:09.052 - INFO: <epoch:100, iter:  21,400> l_pix: 3.8208e-02 
+25-12-05 00:19:43.732 - INFO: <epoch:101, iter:  21,500> l_pix: 3.2619e-02 
+25-12-05 00:20:00.926 - INFO: <epoch:101, iter:  21,600> l_pix: 5.3575e-02 
+25-12-05 00:20:18.140 - INFO: <epoch:101, iter:  21,700> l_pix: 6.1110e-02 
+25-12-05 00:20:52.780 - INFO: <epoch:102, iter:  21,800> l_pix: 3.3700e-02 
+25-12-05 00:21:09.998 - INFO: <epoch:102, iter:  21,900> l_pix: 2.5647e-02 
+25-12-05 00:21:44.657 - INFO: <epoch:103, iter:  22,000> l_pix: 3.2539e-02 
+25-12-05 00:22:55.957 - INFO: # Validation # PSNR: 1.8291e+01
+25-12-05 00:22:55.957 - INFO: <epoch:103, iter:  22,000> psnr: 1.8291e+01
+25-12-05 00:23:13.130 - INFO: <epoch:103, iter:  22,100> l_pix: 3.6675e-02 
+25-12-05 00:23:47.904 - INFO: <epoch:104, iter:  22,200> l_pix: 2.9834e-02 
+25-12-05 00:24:05.090 - INFO: <epoch:104, iter:  22,300> l_pix: 6.8386e-02 
+25-12-05 00:24:39.820 - INFO: <epoch:105, iter:  22,400> l_pix: 1.2733e-01 
+25-12-05 00:24:57.008 - INFO: <epoch:105, iter:  22,500> l_pix: 7.7186e-02 
+25-12-05 00:25:31.825 - INFO: <epoch:106, iter:  22,600> l_pix: 6.0192e-02 
+25-12-05 00:25:49.015 - INFO: <epoch:106, iter:  22,700> l_pix: 2.4874e-02 
+25-12-05 00:26:23.673 - INFO: <epoch:107, iter:  22,800> l_pix: 3.1998e-02 
+25-12-05 00:26:40.871 - INFO: <epoch:107, iter:  22,900> l_pix: 2.5040e-02 
+25-12-05 00:26:58.081 - INFO: <epoch:107, iter:  23,000> l_pix: 2.8200e-02 
+25-12-05 00:28:09.547 - INFO: # Validation # PSNR: 1.5743e+01
+25-12-05 00:28:09.547 - INFO: <epoch:107, iter:  23,000> psnr: 1.5743e+01
+25-12-05 00:28:43.917 - INFO: <epoch:108, iter:  23,100> l_pix: 2.9955e-02 
+25-12-05 00:29:01.118 - INFO: <epoch:108, iter:  23,200> l_pix: 6.8273e-02 
+25-12-05 00:29:35.559 - INFO: <epoch:109, iter:  23,300> l_pix: 7.5592e-02 
+25-12-05 00:29:52.771 - INFO: <epoch:109, iter:  23,400> l_pix: 2.3508e-02 
+25-12-05 00:30:27.423 - INFO: <epoch:110, iter:  23,500> l_pix: 2.3570e-02 
+25-12-05 00:30:44.592 - INFO: <epoch:110, iter:  23,600> l_pix: 6.7955e-02 
+25-12-05 00:31:19.095 - INFO: <epoch:111, iter:  23,700> l_pix: 3.8581e-02 
+25-12-05 00:31:36.300 - INFO: <epoch:111, iter:  23,800> l_pix: 2.6165e-02 
+25-12-05 00:32:10.955 - INFO: <epoch:112, iter:  23,900> l_pix: 6.7147e-02 
+25-12-05 00:32:28.151 - INFO: <epoch:112, iter:  24,000> l_pix: 2.1088e-02 
+25-12-05 00:33:39.914 - INFO: # Validation # PSNR: 1.4331e+01
+25-12-05 00:33:39.915 - INFO: <epoch:112, iter:  24,000> psnr: 1.4331e+01
+25-12-05 00:34:14.614 - INFO: <epoch:113, iter:  24,100> l_pix: 9.7896e-02 
+25-12-05 00:34:31.811 - INFO: <epoch:113, iter:  24,200> l_pix: 3.0670e-02 
+25-12-05 00:34:48.991 - INFO: <epoch:113, iter:  24,300> l_pix: 3.2968e-02 
+25-12-05 00:35:23.434 - INFO: <epoch:114, iter:  24,400> l_pix: 5.1167e-02 
+25-12-05 00:35:40.611 - INFO: <epoch:114, iter:  24,500> l_pix: 6.9801e-02 
+25-12-05 00:36:15.522 - INFO: <epoch:115, iter:  24,600> l_pix: 5.6310e-02 
+25-12-05 00:36:32.702 - INFO: <epoch:115, iter:  24,700> l_pix: 3.4243e-02 
+25-12-05 00:37:06.979 - INFO: <epoch:116, iter:  24,800> l_pix: 3.0714e-02 
+25-12-05 00:37:24.178 - INFO: <epoch:116, iter:  24,900> l_pix: 2.2903e-02 
+25-12-05 00:37:59.024 - INFO: <epoch:117, iter:  25,000> l_pix: 5.0262e-02 
+25-12-05 00:39:10.507 - INFO: # Validation # PSNR: 1.2588e+01
+25-12-05 00:39:10.507 - INFO: <epoch:117, iter:  25,000> psnr: 1.2588e+01
+25-12-05 00:39:10.507 - INFO: Saving models and training states.
+25-12-05 00:39:10.631 - INFO: Saved model in [experiments\UIEB_251204_222921\checkpoint\I25000_E117_gen.pth] ...
+25-12-05 00:39:27.809 - INFO: <epoch:117, iter:  25,100> l_pix: 2.2663e-02 
+25-12-05 00:40:02.288 - INFO: <epoch:118, iter:  25,200> l_pix: 1.9889e-02 
+25-12-05 00:40:19.456 - INFO: <epoch:118, iter:  25,300> l_pix: 2.8805e-02 
+25-12-05 00:40:53.742 - INFO: <epoch:119, iter:  25,400> l_pix: 6.1397e-02 
+25-12-05 00:41:10.914 - INFO: <epoch:119, iter:  25,500> l_pix: 1.9031e-02 
+25-12-05 00:41:28.084 - INFO: <epoch:119, iter:  25,600> l_pix: 2.3392e-02 
+25-12-05 00:42:03.014 - INFO: <epoch:120, iter:  25,700> l_pix: 2.5722e-02 
+25-12-05 00:42:20.219 - INFO: <epoch:120, iter:  25,800> l_pix: 2.4391e-02 
+25-12-05 00:42:55.041 - INFO: <epoch:121, iter:  25,900> l_pix: 1.4462e-01 
+25-12-05 00:43:12.215 - INFO: <epoch:121, iter:  26,000> l_pix: 2.2801e-02 
+25-12-05 00:44:23.519 - INFO: # Validation # PSNR: 1.2061e+01
+25-12-05 00:44:23.519 - INFO: <epoch:121, iter:  26,000> psnr: 1.2061e+01
+25-12-05 00:44:57.881 - INFO: <epoch:122, iter:  26,100> l_pix: 2.8033e-02 
+25-12-05 00:45:15.054 - INFO: <epoch:122, iter:  26,200> l_pix: 2.9569e-02 
+25-12-05 00:45:50.309 - INFO: <epoch:123, iter:  26,300> l_pix: 2.4128e-02 
+25-12-05 00:46:07.481 - INFO: <epoch:123, iter:  26,400> l_pix: 2.1809e-01 
+25-12-05 00:46:42.365 - INFO: <epoch:124, iter:  26,500> l_pix: 3.9687e-02 
+25-12-05 00:46:59.539 - INFO: <epoch:124, iter:  26,600> l_pix: 3.7645e-02 
+25-12-05 00:47:16.720 - INFO: <epoch:124, iter:  26,700> l_pix: 4.1238e-02 
+25-12-05 00:47:51.818 - INFO: <epoch:125, iter:  26,800> l_pix: 5.3080e-02 
+25-12-05 00:48:09.028 - INFO: <epoch:125, iter:  26,900> l_pix: 2.6962e-02 
+25-12-05 00:48:44.081 - INFO: <epoch:126, iter:  27,000> l_pix: 2.6047e-02 
+25-12-05 00:49:55.424 - INFO: # Validation # PSNR: 1.6174e+01
+25-12-05 00:49:55.424 - INFO: <epoch:126, iter:  27,000> psnr: 1.6174e+01
+25-12-05 00:50:12.606 - INFO: <epoch:126, iter:  27,100> l_pix: 1.4111e-01 
+25-12-05 00:50:47.134 - INFO: <epoch:127, iter:  27,200> l_pix: 8.1245e-02 
+25-12-05 00:51:04.312 - INFO: <epoch:127, iter:  27,300> l_pix: 5.8592e-02 
+25-12-05 00:51:38.957 - INFO: <epoch:128, iter:  27,400> l_pix: 4.2138e-02 
+25-12-05 00:51:56.156 - INFO: <epoch:128, iter:  27,500> l_pix: 3.0396e-02 
+25-12-05 00:52:30.621 - INFO: <epoch:129, iter:  27,600> l_pix: 2.8791e-02 
+25-12-05 00:52:47.828 - INFO: <epoch:129, iter:  27,700> l_pix: 1.6868e-02 
+25-12-05 00:53:22.276 - INFO: <epoch:130, iter:  27,800> l_pix: 2.5540e-02 
+25-12-05 00:53:39.475 - INFO: <epoch:130, iter:  27,900> l_pix: 3.2413e-02 
+25-12-05 00:53:56.704 - INFO: <epoch:130, iter:  28,000> l_pix: 1.8639e-02 
+25-12-05 00:55:08.279 - INFO: # Validation # PSNR: 1.5549e+01
+25-12-05 00:55:08.279 - INFO: <epoch:130, iter:  28,000> psnr: 1.5549e+01
+25-12-05 00:55:43.078 - INFO: <epoch:131, iter:  28,100> l_pix: 6.4800e-02 
+25-12-05 00:56:00.250 - INFO: <epoch:131, iter:  28,200> l_pix: 6.3265e-02 
+25-12-05 00:56:35.171 - INFO: <epoch:132, iter:  28,300> l_pix: 7.4221e-02 
+25-12-05 00:56:52.396 - INFO: <epoch:132, iter:  28,400> l_pix: 5.4553e-02 
+25-12-05 00:57:27.223 - INFO: <epoch:133, iter:  28,500> l_pix: 1.8506e-02 
+25-12-05 00:57:44.392 - INFO: <epoch:133, iter:  28,600> l_pix: 2.1322e-02 
+25-12-05 00:58:19.327 - INFO: <epoch:134, iter:  28,700> l_pix: 2.7278e-02 
+25-12-05 00:58:36.534 - INFO: <epoch:134, iter:  28,800> l_pix: 5.0771e-02 
+25-12-05 00:59:11.142 - INFO: <epoch:135, iter:  28,900> l_pix: 3.0918e-02 
+25-12-05 00:59:28.318 - INFO: <epoch:135, iter:  29,000> l_pix: 2.6628e-02 
+25-12-05 01:00:39.264 - INFO: # Validation # PSNR: 1.3943e+01
+25-12-05 01:00:39.264 - INFO: <epoch:135, iter:  29,000> psnr: 1.3943e+01
+25-12-05 01:01:13.582 - INFO: <epoch:136, iter:  29,100> l_pix: 8.1882e-02 
+25-12-05 01:01:30.770 - INFO: <epoch:136, iter:  29,200> l_pix: 2.2259e-02 
+25-12-05 01:01:47.948 - INFO: <epoch:136, iter:  29,300> l_pix: 3.1881e-02 
+25-12-05 01:02:22.405 - INFO: <epoch:137, iter:  29,400> l_pix: 9.2930e-02 
+25-12-05 01:02:39.569 - INFO: <epoch:137, iter:  29,500> l_pix: 4.1574e-02 
+25-12-05 01:03:14.270 - INFO: <epoch:138, iter:  29,600> l_pix: 6.5398e-02 
+25-12-05 01:03:31.431 - INFO: <epoch:138, iter:  29,700> l_pix: 3.5439e-02 
+25-12-05 01:04:06.135 - INFO: <epoch:139, iter:  29,800> l_pix: 2.6969e-02 
+25-12-05 01:04:23.297 - INFO: <epoch:139, iter:  29,900> l_pix: 2.9420e-02 
+25-12-05 01:04:57.610 - INFO: <epoch:140, iter:  30,000> l_pix: 1.8109e-02 
+25-12-05 01:06:08.295 - INFO: # Validation # PSNR: 1.4070e+01
+25-12-05 01:06:08.295 - INFO: <epoch:140, iter:  30,000> psnr: 1.4070e+01
+25-12-05 01:06:08.295 - INFO: Saving models and training states.
+25-12-05 01:06:08.417 - INFO: Saved model in [experiments\UIEB_251204_222921\checkpoint\I30000_E140_gen.pth] ...
+25-12-05 01:06:25.598 - INFO: <epoch:140, iter:  30,100> l_pix: 4.2118e-02 
+25-12-05 01:06:59.865 - INFO: <epoch:141, iter:  30,200> l_pix: 2.4196e-02 
+25-12-05 01:07:17.025 - INFO: <epoch:141, iter:  30,300> l_pix: 4.2456e-02 
+25-12-05 01:07:51.532 - INFO: <epoch:142, iter:  30,400> l_pix: 1.7201e-02 
+25-12-05 01:08:08.721 - INFO: <epoch:142, iter:  30,500> l_pix: 1.8531e-02 
+25-12-05 01:08:25.950 - INFO: <epoch:142, iter:  30,600> l_pix: 6.5214e-02 
+25-12-05 01:08:59.978 - INFO: <epoch:143, iter:  30,700> l_pix: 3.6359e-02 
+25-12-05 01:09:17.169 - INFO: <epoch:143, iter:  30,800> l_pix: 5.4657e-02 
+25-12-05 01:09:51.613 - INFO: <epoch:144, iter:  30,900> l_pix: 2.5887e-02 
+25-12-05 01:10:08.809 - INFO: <epoch:144, iter:  31,000> l_pix: 2.6490e-02 
+25-12-05 01:11:19.701 - INFO: # Validation # PSNR: 1.6013e+01
+25-12-05 01:11:19.701 - INFO: <epoch:144, iter:  31,000> psnr: 1.6013e+01
+25-12-05 01:11:53.862 - INFO: <epoch:145, iter:  31,100> l_pix: 1.9498e-01 
+25-12-05 01:12:11.023 - INFO: <epoch:145, iter:  31,200> l_pix: 2.1234e-02 
+25-12-05 01:12:44.931 - INFO: <epoch:146, iter:  31,300> l_pix: 2.0263e-02 
+25-12-05 01:13:02.112 - INFO: <epoch:146, iter:  31,400> l_pix: 1.5197e-01 
+25-12-05 01:13:35.994 - INFO: <epoch:147, iter:  31,500> l_pix: 4.6152e-02 
+25-12-05 01:13:53.200 - INFO: <epoch:147, iter:  31,600> l_pix: 5.5540e-02 
+25-12-05 01:14:27.265 - INFO: <epoch:148, iter:  31,700> l_pix: 3.4890e-02 
+25-12-05 01:14:44.435 - INFO: <epoch:148, iter:  31,800> l_pix: 7.1340e-02 
+25-12-05 01:15:01.597 - INFO: <epoch:148, iter:  31,900> l_pix: 3.3622e-02 
+25-12-05 01:15:35.880 - INFO: <epoch:149, iter:  32,000> l_pix: 2.0441e-01 
+25-12-05 01:16:47.148 - INFO: # Validation # PSNR: 1.0251e+01
+25-12-05 01:16:47.148 - INFO: <epoch:149, iter:  32,000> psnr: 1.0251e+01
+25-12-05 01:17:04.340 - INFO: <epoch:149, iter:  32,100> l_pix: 5.1997e-02 
+25-12-05 01:17:38.741 - INFO: <epoch:150, iter:  32,200> l_pix: 1.9164e-02 
+25-12-05 01:17:55.932 - INFO: <epoch:150, iter:  32,300> l_pix: 2.0513e-02 
+25-12-05 01:18:30.219 - INFO: <epoch:151, iter:  32,400> l_pix: 1.6146e-01 
+25-12-05 01:18:47.390 - INFO: <epoch:151, iter:  32,500> l_pix: 4.2731e-02 
+25-12-05 01:19:21.689 - INFO: <epoch:152, iter:  32,600> l_pix: 1.8153e-02 
+25-12-05 01:19:38.870 - INFO: <epoch:152, iter:  32,700> l_pix: 5.0443e-02 
+25-12-05 01:20:13.562 - INFO: <epoch:153, iter:  32,800> l_pix: 4.7770e-02 
+25-12-05 01:20:30.745 - INFO: <epoch:153, iter:  32,900> l_pix: 5.1575e-02 
+25-12-05 01:21:05.018 - INFO: <epoch:154, iter:  33,000> l_pix: 3.6764e-02 
+25-12-05 01:22:16.104 - INFO: # Validation # PSNR: 1.2730e+01
+25-12-05 01:22:16.104 - INFO: <epoch:154, iter:  33,000> psnr: 1.2730e+01
+25-12-05 01:22:33.276 - INFO: <epoch:154, iter:  33,100> l_pix: 4.6280e-02 
+25-12-05 01:22:50.434 - INFO: <epoch:154, iter:  33,200> l_pix: 3.6498e-02 
+25-12-05 01:23:25.228 - INFO: <epoch:155, iter:  33,300> l_pix: 3.1457e-02 
+25-12-05 01:23:42.427 - INFO: <epoch:155, iter:  33,400> l_pix: 2.0930e-02 
+25-12-05 01:24:17.105 - INFO: <epoch:156, iter:  33,500> l_pix: 2.1362e-02 
+25-12-05 01:24:34.304 - INFO: <epoch:156, iter:  33,600> l_pix: 2.0643e-02 
+25-12-05 01:25:09.952 - INFO: <epoch:157, iter:  33,700> l_pix: 2.0060e-02 
+25-12-05 01:25:27.115 - INFO: <epoch:157, iter:  33,800> l_pix: 3.8890e-02 
+25-12-05 01:26:01.421 - INFO: <epoch:158, iter:  33,900> l_pix: 2.0331e-02 
+25-12-05 01:26:18.598 - INFO: <epoch:158, iter:  34,000> l_pix: 8.9080e-02 
+25-12-05 01:27:29.809 - INFO: # Validation # PSNR: 1.5050e+01
+25-12-05 01:27:29.809 - INFO: <epoch:158, iter:  34,000> psnr: 1.5050e+01
+25-12-05 01:28:04.271 - INFO: <epoch:159, iter:  34,100> l_pix: 1.5776e-02 
+25-12-05 01:28:21.462 - INFO: <epoch:159, iter:  34,200> l_pix: 6.0497e-02 
+25-12-05 01:28:56.136 - INFO: <epoch:160, iter:  34,300> l_pix: 4.6986e-02 
+25-12-05 01:29:13.304 - INFO: <epoch:160, iter:  34,400> l_pix: 2.2421e-01 
+25-12-05 01:29:30.469 - INFO: <epoch:160, iter:  34,500> l_pix: 2.9425e-02 
+25-12-05 01:30:04.952 - INFO: <epoch:161, iter:  34,600> l_pix: 6.7836e-02 
+25-12-05 01:30:22.147 - INFO: <epoch:161, iter:  34,700> l_pix: 6.4525e-02 
+25-12-05 01:30:56.833 - INFO: <epoch:162, iter:  34,800> l_pix: 3.9517e-02 
+25-12-05 01:31:14.048 - INFO: <epoch:162, iter:  34,900> l_pix: 1.7275e-02 
+25-12-05 01:31:48.898 - INFO: <epoch:163, iter:  35,000> l_pix: 2.6793e-02 
+25-12-05 01:33:01.282 - INFO: # Validation # PSNR: 1.1848e+01
+25-12-05 01:33:01.282 - INFO: <epoch:163, iter:  35,000> psnr: 1.1848e+01
+25-12-05 01:33:01.282 - INFO: Saving models and training states.
+25-12-05 01:33:01.402 - INFO: Saved model in [experiments\UIEB_251204_222921\checkpoint\I35000_E163_gen.pth] ...
+25-12-05 01:33:18.734 - INFO: <epoch:163, iter:  35,100> l_pix: 5.5343e-02 
+25-12-05 01:33:53.547 - INFO: <epoch:164, iter:  35,200> l_pix: 2.3207e-02 
+25-12-05 01:34:10.764 - INFO: <epoch:164, iter:  35,300> l_pix: 2.9460e-02 
+25-12-05 01:34:45.413 - INFO: <epoch:165, iter:  35,400> l_pix: 2.9638e-02 
+25-12-05 01:35:02.598 - INFO: <epoch:165, iter:  35,500> l_pix: 2.9357e-02 
+25-12-05 01:35:37.471 - INFO: <epoch:166, iter:  35,600> l_pix: 1.9116e-02 
+25-12-05 01:35:54.661 - INFO: <epoch:166, iter:  35,700> l_pix: 5.3903e-02 
+25-12-05 01:36:11.838 - INFO: <epoch:166, iter:  35,800> l_pix: 5.1482e-02 
+25-12-05 01:36:46.727 - INFO: <epoch:167, iter:  35,900> l_pix: 1.4783e-02 
+25-12-05 01:37:03.920 - INFO: <epoch:167, iter:  36,000> l_pix: 2.6450e-02 
+25-12-05 01:38:16.495 - INFO: # Validation # PSNR: 1.4890e+01
+25-12-05 01:38:16.495 - INFO: <epoch:167, iter:  36,000> psnr: 1.4890e+01
+25-12-05 01:38:51.146 - INFO: <epoch:168, iter:  36,100> l_pix: 3.3842e-02 
+25-12-05 01:39:08.316 - INFO: <epoch:168, iter:  36,200> l_pix: 1.6409e-02 
+25-12-05 01:39:43.223 - INFO: <epoch:169, iter:  36,300> l_pix: 2.1393e-02 
+25-12-05 01:40:00.431 - INFO: <epoch:169, iter:  36,400> l_pix: 2.3757e-02 
+25-12-05 01:40:35.699 - INFO: <epoch:170, iter:  36,500> l_pix: 1.4337e-02 
+25-12-05 01:40:52.869 - INFO: <epoch:170, iter:  36,600> l_pix: 4.6206e-02 
+25-12-05 01:41:28.143 - INFO: <epoch:171, iter:  36,700> l_pix: 8.3601e-02 
+25-12-05 01:41:45.333 - INFO: <epoch:171, iter:  36,800> l_pix: 5.0300e-02 
+25-12-05 01:42:20.209 - INFO: <epoch:172, iter:  36,900> l_pix: 2.2713e-02 
+25-12-05 01:42:37.401 - INFO: <epoch:172, iter:  37,000> l_pix: 4.9627e-02 
+25-12-05 01:43:49.596 - INFO: # Validation # PSNR: 1.8295e+01
+25-12-05 01:43:49.596 - INFO: <epoch:172, iter:  37,000> psnr: 1.8295e+01
+25-12-05 01:44:06.787 - INFO: <epoch:172, iter:  37,100> l_pix: 5.0001e-02 
+25-12-05 01:44:41.621 - INFO: <epoch:173, iter:  37,200> l_pix: 1.1126e-01 
+25-12-05 01:44:58.816 - INFO: <epoch:173, iter:  37,300> l_pix: 4.6415e-02 
+25-12-05 01:45:33.880 - INFO: <epoch:174, iter:  37,400> l_pix: 5.4369e-02 
+25-12-05 01:45:51.066 - INFO: <epoch:174, iter:  37,500> l_pix: 1.7977e-02 
+25-12-05 01:46:26.137 - INFO: <epoch:175, iter:  37,600> l_pix: 5.0987e-02 
+25-12-05 01:46:43.333 - INFO: <epoch:175, iter:  37,700> l_pix: 2.1100e-02 
+25-12-05 01:47:17.783 - INFO: <epoch:176, iter:  37,800> l_pix: 6.9666e-02 
+25-12-05 01:47:34.986 - INFO: <epoch:176, iter:  37,900> l_pix: 2.0008e-02 
+25-12-05 01:48:09.868 - INFO: <epoch:177, iter:  38,000> l_pix: 2.0036e-02 
+25-12-05 01:49:22.316 - INFO: # Validation # PSNR: 1.5933e+01
+25-12-05 01:49:22.316 - INFO: <epoch:177, iter:  38,000> psnr: 1.5933e+01
+25-12-05 01:49:39.527 - INFO: <epoch:177, iter:  38,100> l_pix: 4.0823e-02 
+25-12-05 01:49:56.763 - INFO: <epoch:177, iter:  38,200> l_pix: 1.7959e-02 
+25-12-05 01:50:31.465 - INFO: <epoch:178, iter:  38,300> l_pix: 5.3428e-02 
+25-12-05 01:50:48.669 - INFO: <epoch:178, iter:  38,400> l_pix: 3.0690e-02 
+25-12-05 01:51:23.102 - INFO: <epoch:179, iter:  38,500> l_pix: 2.8512e-02 
+25-12-05 01:51:40.316 - INFO: <epoch:179, iter:  38,600> l_pix: 2.0073e-02 
+25-12-05 01:52:15.168 - INFO: <epoch:180, iter:  38,700> l_pix: 1.7639e-02 
+25-12-05 01:52:32.381 - INFO: <epoch:180, iter:  38,800> l_pix: 1.5796e-02 
+25-12-05 01:53:07.037 - INFO: <epoch:181, iter:  38,900> l_pix: 1.6518e-02 
+25-12-05 01:53:24.225 - INFO: <epoch:181, iter:  39,000> l_pix: 1.4051e-02 
+25-12-05 01:54:36.902 - INFO: # Validation # PSNR: 1.6443e+01
+25-12-05 01:54:36.902 - INFO: <epoch:181, iter:  39,000> psnr: 1.6443e+01
+25-12-05 01:55:11.506 - INFO: <epoch:182, iter:  39,100> l_pix: 5.4412e-02 
+25-12-05 01:55:28.702 - INFO: <epoch:182, iter:  39,200> l_pix: 2.1357e-02 
+25-12-05 01:56:03.327 - INFO: <epoch:183, iter:  39,300> l_pix: 2.2967e-02 
+25-12-05 01:56:20.511 - INFO: <epoch:183, iter:  39,400> l_pix: 2.0821e-02 
+25-12-05 01:56:37.709 - INFO: <epoch:183, iter:  39,500> l_pix: 2.9138e-02 
+25-12-05 01:57:12.787 - INFO: <epoch:184, iter:  39,600> l_pix: 2.0846e-02 
+25-12-05 01:57:29.969 - INFO: <epoch:184, iter:  39,700> l_pix: 3.8465e-02 
+25-12-05 01:58:05.046 - INFO: <epoch:185, iter:  39,800> l_pix: 1.3361e-02 
+25-12-05 01:58:22.275 - INFO: <epoch:185, iter:  39,900> l_pix: 6.1641e-02 
+25-12-05 01:58:57.306 - INFO: <epoch:186, iter:  40,000> l_pix: 2.3172e-02 
+25-12-05 02:00:09.513 - INFO: # Validation # PSNR: 1.5785e+01
+25-12-05 02:00:09.514 - INFO: <epoch:186, iter:  40,000> psnr: 1.5785e+01
+25-12-05 02:00:09.514 - INFO: Saving models and training states.
+25-12-05 02:00:09.636 - INFO: Saved model in [experiments\UIEB_251204_222921\checkpoint\I40000_E186_gen.pth] ...
+25-12-05 02:00:26.800 - INFO: <epoch:186, iter:  40,100> l_pix: 3.9756e-02 
+25-12-05 02:01:01.936 - INFO: <epoch:187, iter:  40,200> l_pix: 1.8175e-02 
+25-12-05 02:01:19.117 - INFO: <epoch:187, iter:  40,300> l_pix: 2.0616e-02 
+25-12-05 02:01:54.381 - INFO: <epoch:188, iter:  40,400> l_pix: 1.9672e-02 
+25-12-05 02:02:11.545 - INFO: <epoch:188, iter:  40,500> l_pix: 5.2678e-02 
+25-12-05 02:02:46.276 - INFO: <epoch:189, iter:  40,600> l_pix: 1.9874e-02 
+25-12-05 02:03:04.077 - INFO: <epoch:189, iter:  40,700> l_pix: 2.1866e-02 
+25-12-05 02:03:21.316 - INFO: <epoch:189, iter:  40,800> l_pix: 1.8382e-02 
+25-12-05 02:03:57.510 - INFO: <epoch:190, iter:  40,900> l_pix: 5.0329e-02 
+25-12-05 02:04:14.680 - INFO: <epoch:190, iter:  41,000> l_pix: 3.8627e-02 
+25-12-05 02:05:26.552 - INFO: # Validation # PSNR: 1.6590e+01
+25-12-05 02:05:26.553 - INFO: <epoch:190, iter:  41,000> psnr: 1.6590e+01
+25-12-05 02:06:01.739 - INFO: <epoch:191, iter:  41,100> l_pix: 1.4948e-02 
+25-12-05 02:06:18.940 - INFO: <epoch:191, iter:  41,200> l_pix: 3.7019e-02 
+25-12-05 02:06:54.620 - INFO: <epoch:192, iter:  41,300> l_pix: 1.5500e-02 
+25-12-05 02:07:11.783 - INFO: <epoch:192, iter:  41,400> l_pix: 4.1208e-02 
+25-12-05 02:07:46.861 - INFO: <epoch:193, iter:  41,500> l_pix: 6.3435e-02 
+25-12-05 02:08:04.068 - INFO: <epoch:193, iter:  41,600> l_pix: 4.4052e-02 
+25-12-05 02:08:38.929 - INFO: <epoch:194, iter:  41,700> l_pix: 2.7457e-02 
+25-12-05 02:08:56.103 - INFO: <epoch:194, iter:  41,800> l_pix: 3.6177e-02 
